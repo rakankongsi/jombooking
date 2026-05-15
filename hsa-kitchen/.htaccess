@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Protect data.json from direct access
+  RewriteCond %{REQUEST_URI} \.json$ [NC]
+  # Allow requests that have a referer (i.e. fetched by the website itself)
+  # WARNING: If your site has a different domain, replace HTTP_REFERER matching logic as needed, 
+  # or simply allow if HTTP_REFERER is present.
+  RewriteCond %{HTTP_REFERER} !^https?:// [NC]
+  RewriteRule ^ - [F,L]
+</IfModule>
